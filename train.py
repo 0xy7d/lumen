@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -40,15 +41,22 @@ data = [
 
 tokenized_data = [tokenizer(text, vocab) for text in data]
 
-for epoch in range(100):
-    for sentence in tokenized_data:
-        for i in range(1, len(sentence)):
-            input_seq = torch.tensor(sentence[:i]).unsqueeze(0)
-            target = torch.tensor(sentence[i]).unsqueeze(0)
-            optimizer.zero_grad()
-            output = model(input_seq)
-            loss = criterion(output[:, -1, :], target)
-            loss.backward()
-            optimizer.step()
-    if epoch % 10 == 0:
-        print(f"Epoch {epoch}, Loss: {loss.item()}")
+if "lumen-v0.pt" in os.listdir("./models"):
+    print("Model already exists")
+else:
+    for epoch in range(100):
+        for sentence in tokenized_data:
+            for i in range(1, len(sentence)):
+                input_seq = torch.tensor(sentence[:i]).unsqueeze(0)
+                target = torch.tensor(sentence[i]).unsqueeze(0)
+                optimizer.zero_grad()
+                output = model(input_seq)
+                loss = criterion(output[:, -1, :], target)
+                loss.backward()
+                optimizer.step()
+        if epoch % 10 == 0:
+            print(f"Epoch {epoch}, Loss: {loss.item()}")
+
+    # Save the model
+    torch.save(model.state_dict(), "models/lumen-v0.pt")
+

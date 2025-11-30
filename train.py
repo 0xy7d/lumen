@@ -11,6 +11,7 @@ embedding_dim = 16
 hidden_dim = 32
 num_layers = 2
 learning_rate = 0.001
+epoches = 10_000
 
 model = LumenLLM(vocab_size, embedding_dim, hidden_dim, num_layers)
 criterion = nn.CrossEntropyLoss()
@@ -44,7 +45,7 @@ tokenized_data = [tokenizer(text, vocab) for text in data]
 if "lumen-v0.pt" in os.listdir("./models"):
     print("Model already exists")
 else:
-    for epoch in range(100):
+    for epoch in range(epoches):
         for sentence in tokenized_data:
             for i in range(1, len(sentence)):
                 input_seq = torch.tensor(sentence[:i]).unsqueeze(0)
@@ -59,4 +60,3 @@ else:
 
     # Save the model
     torch.save(model.state_dict(), "models/lumen-v0.pt")
-

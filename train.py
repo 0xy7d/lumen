@@ -11,7 +11,7 @@ embedding_dim = 16
 hidden_dim = 32
 num_layers = 2
 learning_rate = 0.001
-epoches = 10_000
+epoches = 200
 
 model = LumenLLM(vocab_size, embedding_dim, hidden_dim, num_layers)
 criterion = nn.CrossEntropyLoss()

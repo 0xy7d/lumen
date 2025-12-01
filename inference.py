@@ -5,7 +5,7 @@ Inference file to test out the trained model.
 import torch
 
 from model import LumenLLM, tokenizer
-from train import embedding_dim, hidden_dim, num_layers, vocab, vocab_size
+from config import vocab, vocab_size, embedding_dim, hidden_dim, num_layers
 
 
 def load_model():

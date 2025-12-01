@@ -3,15 +3,16 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from model import LumenLLM, load_vocab, tokenizer
-
-vocab = load_vocab()
-vocab_size = len(vocab)
-embedding_dim = 16
-hidden_dim = 32
-num_layers = 2
-learning_rate = 0.001
-epoches = 200
+from model import LumenLLM, tokenizer
+from config import (
+    vocab,
+    vocab_size,
+    embedding_dim,
+    hidden_dim,
+    num_layers,
+    learning_rate,
+    epoches,
+)
 
 model = LumenLLM(vocab_size, embedding_dim, hidden_dim, num_layers)
 criterion = nn.CrossEntropyLoss()
@@ -19,25 +20,54 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 data = [
     "hello world",
-    "hello world how are you",
-    "how are you",
-    "i am here",
-    "we are here",
-    "they are there",
-    "i am good",
-    "you are good",
+    "hello how are you",
+    "i am here with you",
+    "we are in the place",
+    "they are in the world",
+    "this is a good day",
+    "that is a new thing",
     "life is good",
     "people are here",
-    "this is new",
-    "that is good",
-    "i want more",
-    "we want more",
-    "you know this",
+    "you are in my life",
+    "i want more time",
+    "we want a good day",
+    "you know this place",
     "i think you know",
     "what do you want",
     "why are you here",
     "where are we",
-    "i have life",
+    "when will you come",
+    "i will go to the place",
+    "you can make a new thing",
+    "we can do this",
+    "they can see the world",
+    "i have a name",
+    "your name is good",
+    "our life is new",
+    "i am not bad",
+    "this is very good",
+    "that is very bad",
+    "you look good",
+    "i feel good today",
+    "i feel good",
+    "you say the same thing",
+    "i know the man",
+    "you know the woman",
+    "the man is here",
+    "the woman is there",
+    "this thing is new",
+    "that thing is good",
+    "i look at the world",
+    "we look at life",
+    "you feel the time",
+    "i want to see you",
+    "you want to know more",
+    "we have the time",
+    "they have a place",
+    "i think of you",
+    "we think of life",
+    "you make the day good",
+    "this is the world we know",
 ]
 
 tokenized_data = [tokenizer(text, vocab) for text in data]
